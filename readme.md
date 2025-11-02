@@ -16,46 +16,41 @@ It automates and validates the following features:
 
 Follow these steps line by line to set up the project:
 
-Clone the repository
-
-git clone https://github.com/your-username/orangehrm-playwright-demo.git
-
-
-Go to the project directory
-
-cd orangehrm-playwright-demo
+**Clone the repository**
+    ```bash
+    git clone https://github.com/your-username/orangehrm-playwright-demo.git
 
 
-Create a virtual environment
+1. **Go to the project directory**
+    ```bash
+    cd orangehrm-playwright-demo
 
-python -m venv venv
+
+2. **Create a virtual environment**
+    ```bash
+    python -m venv venv
 
 
-Activate the virtual environment
+3. **Activate the virtual environment**
 
 Windows:
-
-venv\Scripts\activate
+    ```bash
+    venv\Scripts\activate
 
 
 macOS/Linux:
-
-source venv/bin/activate
-
-
-(Option A) Install dependencies manually
-
-pip install pytest pytest-playwright playwright pytest-html
+    ```bash
+    source venv/bin/activate
 
 
-(Option B) Install dependencies from requirements.txt
+4. **Install dependencies**
+    ```bash
+    pip install -r requirements.txt
 
-pip install -r requirements.txt
 
-
-Install browsers for Playwright
-
-playwright install
+5. **Install browsers for Playwright**
+    ```bash
+    playwright install
 
 
 Your setup is now ready to run tests 🚀
@@ -63,47 +58,47 @@ Your setup is now ready to run tests 🚀
 🧪 Running Tests
 
 Run all tests:
-
-pytest
+    ```bash
+    pytest
 
 
 Run with visible browser window:
-
-pytest --headed
+    ```bash
+    pytest --headed
 
 
 Run in slow motion (for debugging):
-
-pytest --headed --slowmo 500
+    ```bash
+    pytest --headed --slowmo 500
 
 
 Run a specific test file:
-
-pytest tests/test_login.py
+    ```bash
+    pytest tests/test_login.py
 
 
 Run with detailed output:
-
-pytest -v
+    ```bash
+    pytest -v
 
 
 Run tests by marker:
 
-pytest -m login
-pytest -m claim
-pytest -m vacancy
-pytest -m logout
-pytest -m regression
-pytest -m smoke
+    ```bash
+    pytest -m login
 
-Run test with multiple markers:
-pytest -m "login or vacancy"
+    pytest -m regression
 
-Generate an HTML test report:
 
-pytest --html=report.html --self-contained-html
+**Run test with multiple markers:**
+    ```bash
+    pytest -m "login or vacancy"
 
-🏷️ Pytest Markers Configuration
+**Generate an HTML test report:**
+    ```bash
+    pytest --html=report.html --self-contained-html
+
+**🏷️ Pytest Markers Configuration**
 
 You can define markers in a pytest.ini file to organize your tests by category:
 
