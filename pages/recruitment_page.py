@@ -1,6 +1,6 @@
 import re
 import random
-from playwright.sync_api import expect
+from playwright.sync_api import Page, expect
 
 class RecruitmentPage():
     def __init__(self,page):
@@ -25,8 +25,8 @@ class RecruitmentPage():
         self.modal_yes_delete_button = page.get_by_role("button", name=" Yes, Delete")
         self.delete_success_modal = page.get_by_text("SuccessSuccessfully Deleted×")
         self.last_added_vacancy = None
-        self.job_title_search_dropwdown = page.locator(".oxd-select-text").first
-        self.vacancy_search_dropdown = page.locator("div:nth-child(2) > .oxd-input-group > div:nth-child(2) > .oxd-select-wrapper > .oxd-select-text")
+        self.job_title_search_dropwdown = page.locator("form i").first
+        self.vacancy_search_dropdown =page.locator("form i").nth(1)
         self.search_button = page.get_by_role("button", name="Search")
         self.no_records_found_toast = page.locator("#oxd-toaster_1").get_by_text("No Records Found")
         
@@ -42,14 +42,15 @@ class RecruitmentPage():
         self.add_vancancy_button.click()
         self.vancancy_name.fill(job_title)
         self.job_title_dropdown.click()
-        self.job_title = self.page.get_by_role("option", name=job_title)
+        self.job_title = self.page.get_by_role("option", name=job_title).first
         self.job_title.click()
         self.description.fill("Test Vacancy description.")
         self.hiring_manager_field.fill(hiring_manager)
-        self.hiring_manager_dropdown_option = self.page.get_by_role("option", name=hiring_manager)
+        self.hiring_manager_dropdown_option = self.page.get_by_role("option", name=hiring_manager).first
         self.hiring_manager_dropdown_option.click()
         self.number_of_positions.fill("1")
         self.save_button.click()
+        self.page.wait_for_timeout(500)
         self.last_added_vacancy = job_title
         return job_title
     
@@ -57,23 +58,25 @@ class RecruitmentPage():
         job_title = job_title or self.last_added_vacancy
         vacancy = job_title or self.last_added_vacancy
         self.job_title_search_dropwdown.click()
-        self.page.get_by_text(job_title).click()
+        self.page.get_by_text(job_title).first.click()
         self.vacancy_search_dropdown.click()
-        self.page.get_by_text(vacancy).click()
+        self.page.wait_for_timeout(500)
+        self.page.get_by_text(vacancy).first.click()
         self.search_button.click()
-        #first_row = self.page.get_by_role("row", name=f" {job_title}").first
-        #expect(first_row).to_be_visible()
+        first_row = self.page.get_by_role("row", name=f" {job_title}").first
+        expect(first_row).to_be_visible()
         
     def delete_vacancy(self,job_title=None):
         job_title = job_title or self.last_added_vacancy
         self.job_title_search_dropwdown.click()
-        self.page.get_by_text(job_title).click()
+        self.page.get_by_text(job_title).first.click()
         self.vacancy_search_dropdown.click()
-        self.page.get_by_role("option", name=f"{job_title}")
+        self.page.get_by_role("option", name=f"{job_title}").first
+        self.page.wait_for_timeout(500)
         self.search_button.click()
         result = self.page.get_by_role("row", name=f" {job_title}").first
         expect(result).to_be_visible()
-        checkbox = self.page.get_by_role("cell", name="").locator("i")
+        checkbox = self.page.get_by_role("cell", name="").locator("i").first
         checkbox.click()
         self.delete_selected_button.click()
         expect(self.delete_confirmation_modal)
@@ -83,7 +86,7 @@ class RecruitmentPage():
     def assert_deleted_vacancy(self,job_title=None):
         job_title = job_title or self.last_added_vacancy
         self.job_title_search_dropwdown.click()
-        self.page.get_by_text(job_title).click()
+        self.page.get_by_text(job_title).first.click()
         self.vacancy_search_dropdown.click()
         self.page.get_by_role("option", name=f"{job_title}").first
         self.search_button.click()        
