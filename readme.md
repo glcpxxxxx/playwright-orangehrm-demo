@@ -32,8 +32,7 @@ Follow these steps line by line to set up the project:
 
 
 3. **Activate the virtual environment**
-    ## Windows: ##
-        ```bash
+    ```bash
         venv\Scripts\activate
 
 4. **Install dependencies**
@@ -45,42 +44,42 @@ Follow these steps line by line to set up the project:
     ```bash
     playwright install
 
-
-Your setup is now ready to run tests 🚀
+**Your setup is now ready to run tests 🚀**
 **🧪 Running Tests**
-
-### Run all tests:
+**Run all tests:** 
     ```bash
     pytest
 
-
-### Run with visible browser window:
+**Run with visible browser window:** 
+    ```bash
     pytest --headed
 
-### Run in slow motion (for debugging):
+**Run in slow motion (for debugging):** 
+    ```bash
     pytest --headed --slowmo 500
 
-
-### Run a specific test file:
+**Run a specific test file:**
+    ```bash
     pytest tests/test_login.py
 
-
-### Run with detailed output:
+**Run with detailed output:**
+    ```bash
     pytest -v
 
-
-### Run tests by marker:
+**Run tests by marker:** 
+    ```bash
     pytest -m regression
 
-
-### Run test with multiple markers:
+**Run test with multiple markers:**
+    ```bash
     pytest -m "login or vacancy"
 
-### Generate an HTML test report:
+**Generate an HTML test report:**
+    ```bash
     pytest --html=report.html --self-contained-html
 
-###🏷️ Pytest Markers Configuration
-## You can define markers in a pytest.ini file to organize your tests by category:
+**🏷️ Pytest Markers Configuration** 
+**You can define markers in a pytest.ini file to organize your tests by category:**
     [pytest]
     markers =
         login: Tests related to Login functionality
@@ -90,7 +89,7 @@ Your setup is now ready to run tests 🚀
         logout: Tests related to Logout functionality
 
 
-## 📁 Recommended Project Structure
+**📁 Recommended Project Structure**
     orangehrm-playwright-demo/
     │
     ├── tests/
@@ -114,25 +113,26 @@ Your setup is now ready to run tests 🚀
     ├── requirements.txt
     └── README.md
 
-##📦 Dependencies
+**📦 Dependencies**
     The following dependencies are required and installed automatically:
     pytest
     pytest-playwright
     playwright
     pytest-html
 
-## To export your current environment’s packages into a file:
+**To export your current environment’s packages into a file:**
+    ```bash
     pip freeze > requirements.txt
 
-##💡 Tips
-    ✨ Always activate your virtual environment before running tests.
-    👀 Use --headed to view browser execution.
-    🐢 Use --slowmo to slow down execution for debugging.
-    🏷️ Use pytest -m followed by a marker name to run specific test groups.
-    🔁 The OrangeHRM Demo site resets periodically — data is temporary.
+*** 💡 Tips ***
+        ✨ Always activate your virtual environment before running tests.
+        👀 Use --headed to view browser execution.
+        🐢 Use --slowmo to slow down execution for debugging.
+        🏷️ Use pytest -m followed by a marker name to run specific test groups.
+        🔁 The OrangeHRM Demo site resets periodically — data is temporary.
 
 
-##👩‍💻 AUTHOR
-    Gianna Pahuyo
-    Demo QA Automation Project using Playwright + Pytest
-    🔗 https://opensource-demo.orangehrmlive.com
+**👩‍💻 AUTHOR**
+        Gianna Pahuyo
+        Demo QA Automation Project using Playwright + Pytest
+        🔗 https://opensource-demo.orangehrmlive.com
