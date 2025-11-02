@@ -10,6 +10,7 @@ from utils.extract_json_data import get_valid_json_data
 @pytest.mark.smoke
 @pytest.mark.regression
 @pytest.mark.login
+@pytest.mark.claim
 def test_valid_login(page: Page, username,password, expected, base_url) -> None:
     login_page = LoginPage(page)
     home_page = HomePage(page)
