@@ -1,0 +1,10 @@
+[
+  
+    {
+    "role": "invalid_user",
+    "username": "locked_user",
+    "password": "anypass",
+    "expected": "invalid"
+  }
+
+]
