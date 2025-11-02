@@ -1,1 +1,25 @@
+/test_codegen.py# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv/
+venv/
+
+# Playwright
+playwright-report/
+test-results/
+reports/
+trace.zip
+tmp_profile/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+#demo test files
 /test_codegen.py
