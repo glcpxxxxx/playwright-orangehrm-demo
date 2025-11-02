@@ -32,16 +32,9 @@ Follow these steps line by line to set up the project:
 
 
 3. **Activate the virtual environment**
-
-Windows:
-    ```bash
-    venv\Scripts\activate
-
-
-macOS/Linux:
-    ```bash
-    source venv/bin/activate
-
+    ## Windows: ##
+        ```bash
+        venv\Scripts\activate
 
 4. **Install dependencies**
     ```bash
@@ -53,36 +46,34 @@ macOS/Linux:
     playwright install
 
 
-Your setup is now ready to run tests 🚀
+##Your setup is now ready to run tests 🚀
+**🧪 Running Tests**
 
-🧪 Running Tests
-
-Run all tests:
+###Run all tests:##
     ```bash
     pytest
 
 
-Run with visible browser window:
+### Run with visible browser window:###
     ```bash
     pytest --headed
 
-
-Run in slow motion (for debugging):
+### Run in slow motion (for debugging):###
     ```bash
     pytest --headed --slowmo 500
 
 
-Run a specific test file:
+### Run a specific test file:###
     ```bash
     pytest tests/test_login.py
 
 
-Run with detailed output:
+### Run with detailed output:###
     ```bash
     pytest -v
 
 
-Run tests by marker:
+### Run tests by marker:###
 
     ```bash
     pytest -m login
@@ -90,15 +81,15 @@ Run tests by marker:
     pytest -m regression
 
 
-**Run test with multiple markers:**
+### Run test with multiple markers:###
     ```bash
     pytest -m "login or vacancy"
 
-**Generate an HTML test report:**
+### Generate an HTML test report:###
     ```bash
     pytest --html=report.html --self-contained-html
 
-**🏷️ Pytest Markers Configuration**
+###🏷️ Pytest Markers Configuration###
 
 You can define markers in a pytest.ini file to organize your tests by category:
 
