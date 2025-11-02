@@ -71,7 +71,7 @@ class RecruitmentPage():
         self.job_title_search_dropwdown.click()
         self.page.get_by_text(job_title).first.click()
         self.vacancy_search_dropdown.click()
-        self.page.get_by_role("option", name=f"{job_title}").first
+        self.page.get_by_role("option", name=f"{job_title}")
         self.page.wait_for_timeout(500)
         self.search_button.click()
         result = self.page.get_by_role("row", name=f" {job_title}").first
@@ -88,7 +88,8 @@ class RecruitmentPage():
         self.job_title_search_dropwdown.click()
         self.page.get_by_text(job_title).first.click()
         self.vacancy_search_dropdown.click()
-        self.page.get_by_role("option", name=f"{job_title}").first
-        self.search_button.click()        
+        self.page.get_by_role("option", name=f"{job_title}")
+        self.search_button.click()   
+        self.page.wait_for_timeout(500)     
         expect(self.no_records_found_toast).to_be_visible()
         
