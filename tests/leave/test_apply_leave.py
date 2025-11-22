@@ -12,6 +12,7 @@ def test_apply_leave(page,env,fullname):
     home_page = HomePage(page)
     leave_page = LeavePage(page)
     
+    page.goto(f"{env["base_url"]}/web/index.php/dashboard/index")
     home_page.click_leave()
     expect(page).to_have_url(f"{env["base_url"]}/web/index.php/leave/viewLeaveList")
     leave_page.click_apply_leave()

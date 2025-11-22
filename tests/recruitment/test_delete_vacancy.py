@@ -12,6 +12,7 @@ def test_delete_vacancy(page,env,job_title):
     home_page = HomePage(page)
     recruitment_page = RecruitmentPage(page)
     
+    page.goto(f"{env["base_url"]}/web/index.php/dashboard/index")
     home_page.click_recruitment()
     expect(page).to_have_url(f"{env["base_url"]}/web/index.php/recruitment/viewCandidates")
     recruitment_page.click_vacancies()

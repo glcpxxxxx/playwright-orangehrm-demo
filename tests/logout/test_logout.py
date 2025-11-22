@@ -12,6 +12,7 @@ def test_logout(page, env):
     login_page = LoginPage(page)
     home_page = HomePage(page)
     
+    page.goto(f"{env["base_url"]}/web/index.php/dashboard/index")
     home_page.click_logout()
     expect(login_page.login_heading).to_be_visible()
     expect(page).to_have_url(f"{env["base_url"]}/web/index.php/auth/login")

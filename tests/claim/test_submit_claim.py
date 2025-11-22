@@ -14,6 +14,7 @@ def test_submit_claim(page,env,fullname,event_type,currency):
     home_page = HomePage(page)
     claim_page = ClaimPage(page)
     
+    page.goto(f"{env["base_url"]}/web/index.php/dashboard/index")
     home_page.click_claim()
     expect(page).to_have_url(f"{env["base_url"]}/web/index.php/claim/viewAssignClaim")
     claim_page.click_submit_claims()

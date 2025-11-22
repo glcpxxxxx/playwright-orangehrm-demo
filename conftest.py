@@ -1,60 +1,68 @@
 import os
 import pytest
-import random
-from playwright.sync_api import sync_playwright
 from datetime import date, timedelta
 from dotenv import load_dotenv
-from utils.extract_json_data import get_random_employee, get_random_leave_type,get_random_partial_days,get_random_leave_duration
-from utils.extract_json_data import get_random_event_type, get_random_currency
-from utils.extract_json_data import get_random_job_title, get_random_hiring_manager
 
-# Load .env only once
+# import your custom helper functions
+from utils.extract_json_data import (
+    get_random_employee,
+    get_random_leave_type,
+    get_random_partial_days,
+    get_random_leave_duration,
+    get_random_event_type,
+    get_random_currency,
+    get_random_job_title,
+    get_random_hiring_manager
+)
+
+# load .env once
 load_dotenv()
 
+# -----------------------------
+# ENV FIXTURE
+# -----------------------------
 @pytest.fixture
 def env():
-    """Returns environment variables from .env as a dict."""
     return {
         "username": os.getenv("USERNAME"),
         "password": os.getenv("PASSWORD"),
         "base_url": os.getenv("BASE_URL"),
     }
 
-@pytest.fixture(scope="session")
-def browser():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # or True for CI
-        yield browser
-        browser.close()
 
+# -----------------------------
+# OVERRIDE CONTEXT (Reuse Browser, Keep Videos/Screenshots)
+# -----------------------------
 @pytest.fixture(scope="session")
 def context(browser):
-    context = browser.new_context()
-    yield context
-    context.close()
+    """Reuse same browser for all tests while keeping auto screenshots/videos."""
+    ctx = browser.new_context()
+    yield ctx
+    ctx.close()
 
-@pytest.fixture(scope="session")
-def page(context):
-    page = context.new_page()
-    yield page
-    page.close()
 
+# -----------------------------
+# USE BUILT-IN PAGE FIXTURE
+# (Do NOT override it — this enables screenshots on failure)
+# -----------------------------
+# Playwright creates a NEW page per test -> best practice
+# Nothing to do here
+
+
+# -----------------------------
+# CUSTOM DATA FIXTURES (KEPT)
+# -----------------------------
 @pytest.fixture(scope="session")
 def fullname():
-    """Fixture that provides one random employee full name."""
-    random_employee = get_random_employee()
-    return random_employee["employee"]
+    return get_random_employee()["employee"]
 
 @pytest.fixture(scope="session")
 def leave_type():
-    """Fixture that provides one random leave type."""
-    random_leave = get_random_leave_type()
-    return random_leave["type"]
+    return get_random_leave_type()["type"]
 
 @pytest.fixture(scope="session")
 def partial_days():
-    random_partial_day = get_random_partial_days()
-    return random_partial_day["days"]
+    return get_random_partial_days()["days"]
 
 @pytest.fixture(scope="session")
 def to_date():
@@ -64,25 +72,20 @@ def to_date():
 
 @pytest.fixture(scope="session")
 def duration():
-    random_duration = get_random_leave_duration()
-    return random_duration["days"]
+    return get_random_leave_duration()["days"]
 
 @pytest.fixture(scope="session")
 def event_type():
-    random_event = get_random_event_type()
-    return random_event["type"]
+    return get_random_event_type()["type"]
 
 @pytest.fixture(scope="session")
 def currency():
-    random_currency = get_random_currency()
-    return random_currency["currency"]
+    return get_random_currency()["currency"]
 
 @pytest.fixture(scope="session")
 def job_title():
-    random_job_title = get_random_job_title()
-    return random_job_title["job"]
-    
+    return get_random_job_title()["job"]
+
 @pytest.fixture(scope="session")
 def hiring_manager():
-    random_hiring_manager = get_random_hiring_manager()
-    return random_hiring_manager["manager"]
+    return get_random_hiring_manager()["manager"]
