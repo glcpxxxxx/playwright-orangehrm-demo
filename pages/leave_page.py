@@ -10,6 +10,7 @@ class LeavePage:
         self.entitlements_dropdown = page.get_by_role("listitem").filter(has_text="Entitlements")
         self.add_entitlement = page.get_by_role("menuitem", name="Add Entitlements")
         self.assign_leave_link = page.get_by_role("link", name="Assign Leave")
+        
         #fields under assign leave
         self.employee_name_field = page.get_by_role("textbox", name="Type for hints...")
         self.leave_type_dropdown =  page.locator("form i").first
@@ -23,12 +24,20 @@ class LeavePage:
         self.confirm_leave_modal = page.get_by_text("Confirm Leave Assignment", exact=True)
         self.confirm_ok_button = page.get_by_role("button", name="Ok")
         
+        #fields under apply leave
+        self.leave_heading = page.get_by_role("heading", name="Apply Leave")
+        self.apply_leave_type = page.locator("div").filter(has_text=re.compile(r"^-- Select --$")).nth(2)  
+        self.apply_button = page.get_by_role("button", name="Apply")
+        
+        
     # methods to navigate to pages in Leaves page
     def click_assign_leave(self):
         self.assign_leave_link.click()
-
         
-    # methods to the different functions in Leaves page       
+    def click_apply_leave(self):
+        self.apply_link.click()
+        
+    # methods to the different functions in Leaves page           
     def assign_leave(self,fullname,leavetype,to_date,partial_days,duration):
         self.employee_name_field.fill(fullname)
         self.employee_name_field.press("Enter")
@@ -47,14 +56,30 @@ class LeavePage:
         self.partial.click()
         self.page.get_by_role("option", name=partial_days).click()
         self.duration.click()
+        self.page.wait_for_timeout(800)
         self.page.get_by_role("option", name=duration).click()
+        self.page.wait_for_timeout(1000)
+        expect(self.page.locator("div").filter(has_text=re.compile(rf"^{duration}$")).nth(2)).to_be_visible()
         self.assign_button.click()
         expect(self.confirm_leave_modal).to_be_visible
         self.confirm_ok_button.click()
         expect(self.success_message).to_be_visible()
         
+        return today, to_date
+    
+    def assert_no_leave_balance(self):
+        return expect(self.page.locator("#app")).to_contain_text("No Leave Types with Leave Balance")
+            
         
-        
+    def apply_leave(self,assign_leave):
+            today = date.today().strftime("%Y-%d-%m")
+            
+            self.apply_leave_type.click()
+            self.page.get_by_role("option", name="CAN - Vacation").click()
+            self.from_date.fill(today)
+            self.to_date.fill(assign_leave.to_date)
+            self.apply_button.click()
+            expect(self.success_message).to_be_visible()
         
         
         
