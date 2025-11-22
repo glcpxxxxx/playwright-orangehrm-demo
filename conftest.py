@@ -1,10 +1,24 @@
+import os
 import pytest
-from playwright.sync_api import sync_playwright
 import random
+from playwright.sync_api import sync_playwright
 from datetime import date, timedelta
+from dotenv import load_dotenv
 from utils.extract_json_data import get_random_employee, get_random_leave_type,get_random_partial_days,get_random_leave_duration
 from utils.extract_json_data import get_random_event_type, get_random_currency
 from utils.extract_json_data import get_random_job_title, get_random_hiring_manager
+
+# Load .env only once
+load_dotenv()
+
+@pytest.fixture
+def env():
+    """Returns environment variables from .env as a dict."""
+    return {
+        "username": os.getenv("USERNAME"),
+        "password": os.getenv("PASSWORD"),
+        "base_url": os.getenv("BASE_URL"),
+    }
 
 @pytest.fixture(scope="session")
 def browser():
