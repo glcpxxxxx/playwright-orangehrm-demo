@@ -1,9 +1,0 @@
-[
-    {
-    
-    "role" : "valid_user",
-    "username": "Admin",
-    "password": "admin123",
-    "expected": "success"
-    }
-]
