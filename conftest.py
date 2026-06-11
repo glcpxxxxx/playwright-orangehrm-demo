@@ -9,7 +9,7 @@ from utils.extract_json_data import get_random_job_title, get_random_hiring_mana
 @pytest.fixture(scope="session")
 def browser():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)  # or True for CI
+        browser = p.chromium.launch(headless=True)  # or True for CI
         yield browser
         browser.close()
 
