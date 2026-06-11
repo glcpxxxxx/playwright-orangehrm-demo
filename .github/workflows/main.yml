@@ -18,7 +18,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install pytest pytest-playwright
+        run: 
+          pip install r -requirements.txt  
+          pip install pytest pytest-playwright
 
       - name: Install browsers
         run: playwright install --with-deps chromium
