@@ -3,13 +3,12 @@ name: Playwright Tests
 on:
   push:
     branches: [master]
-  pull_request:
-  workflow_dispatch:           # lets you run manually from UI
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30        # fail-safe if tests hang
+    timeout-minutes: 30
 
     steps:
       - uses: actions/checkout@v4
@@ -19,20 +18,22 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: |
-          pip install pytest pytest-playwright
-          pip install -r requirements.txt
+        run: pip install pytest pytest-playwright
 
       - name: Install browsers
-        run: playwright install --with-deps --only-shell
+        run: playwright install --with-deps chromium
 
-      - name: Run tests
-        run: pytest 
+      - name: Run all tests
+        run: pytest
 
-      - name: Upload test report          # Save artifacts on failure
-        if: failure()
+      - name: List output folders
+        if: always()
+        run: ls -la
+
+      - name: Upload report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: reports
+          path: reports/
           retention-days: 7
