@@ -117,3 +117,5 @@ Follow these steps line by line to set up the project:
         Gianna Pahuyo  
         Demo QA Automation Project using Playwright + Pytest  
         🔗 https://opensource-demo.orangehrmlive.com  
+
+Thank you!
