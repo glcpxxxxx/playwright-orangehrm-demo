@@ -27,7 +27,7 @@ jobs:
         run: playwright install --with-deps chromium
 
       - name: Run tests
-        run: pytest --regression
+        run: pytest 
 
       - name: Upload test report          # Save artifacts on failure
         if: failure()
